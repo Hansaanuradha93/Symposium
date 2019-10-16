@@ -70,10 +70,13 @@
                     $supervisor_id = $_POST['supervisor'];
                     $student_id =  $_SESSION['id'];
                     $faculty_id = $_SESSION['faculty_id'];
+                    $title = $_POST['title'];
+                    $category = $_POST['category'];
 
      
-                    $sql="INSERT INTO File(name,size,type,status_id,student_id,supervisor_id,faculty_id) VALUES('$file_name','$new_size','$file_type','0','$student_id','$supervisor_id','$faculty_id')";
+                    $sql="INSERT INTO File(name,size,type,status_id,student_id,supervisor_id,faculty_id, title,category) VALUES('$file_name','$new_size','$file_type','0','$student_id','$supervisor_id','$faculty_id','$title','$category')";
 
+                    // $sql="INSERT INTO File(title,category,name,size,type,status_id,student_id,supervisor_id,faculty_id) VALUES('$title','$category',$file_name','$new_size','$file_type','0','$student_id','$supervisor_id','$faculty_id')";
                     
                     mysqli_query($con,$sql) or die("Can not insert files".mysqli_error($con));
                     
@@ -132,6 +135,16 @@
                 <div class="signup-content">
                     <form action="" method="POST" enctype="multipart/form-data" id="signup-form" class="signup-form">
                         <h2 class="form-title">Upload File</h2>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="title" id="email" placeholder="Title"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="category" id="email" placeholder="Category (Ex: - Image Proccessing)"/>
+                        </div>
+
+                        
                         <div class="form-group">
                             <input type="file" name="userfile" class="form-control-file" id="email"/>
                         </div>
