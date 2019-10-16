@@ -67,3 +67,6 @@ UPDATE File
 SET status_id='1' 
 WHERE f_id = '49';
 
+select st.s_id as student_id,st.f_name as student_first_name,st.l_name as student_last_name,st.email,st.faculty_id as student_faculty_id,st.password as student_password  FROM Student st 
+WHERE st.email = '' AND st.password = '';
+
