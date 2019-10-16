@@ -75,8 +75,6 @@
 
      
                     $sql="INSERT INTO File(name,size,type,status_id,student_id,supervisor_id,faculty_id, title,category) VALUES('$file_name','$new_size','$file_type','0','$student_id','$supervisor_id','$faculty_id','$title','$category')";
-
-                    // $sql="INSERT INTO File(title,category,name,size,type,status_id,student_id,supervisor_id,faculty_id) VALUES('$title','$category',$file_name','$new_size','$file_type','0','$student_id','$supervisor_id','$faculty_id')";
                     
                     mysqli_query($con,$sql) or die("Can not insert files".mysqli_error($con));
                     
@@ -87,6 +85,9 @@
                     </script>
 
                     <?php
+                        // Redirect to view.php
+                        header("location: view.php");
+
                 } else {
                  ?>
                     <script>

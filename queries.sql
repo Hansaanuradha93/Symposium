@@ -55,25 +55,15 @@ CREATE TABLE `symposium`.`File` (
 
 
 
-select f.name as file_name, f.title as file_title, f.category as file_category, s.name as status_name, st.f_name as first_name, st.l_name as last_name, fc.name as faculty_name, sp.f_name as supervisor_first_name, sp.l_name as supervisor_last_name
+select f.f_id as file_id,f.name as file_name, f.title as file_title, f.category as file_category, s.name as status_name, st.f_name as first_name, st.l_name as last_name, fc.name as faculty_name, sp.f_name as supervisor_first_name, sp.l_name as supervisor_last_name
 from File f
 Join Status s ON s.s_id = f.status_id
 JOIN Student st ON f.student_id = st.s_id
 JOIN Faculty fc ON fc.f_id = f.faculty_id
-JOIN Supervisor sp ON sp.s_id = f.supervisor_id;
+JOIN Supervisor sp ON sp.s_id = f.supervisor_id
+WHERE f.student_id = '' AND f.f_id = '';
 
-
-
-]
-
-            ;
-SELECT TableA.*, TableB.*, TableC.*, TableD.*
-FROM TableA
-    JOIN TableB
-        ON TableB.aID = TableA.aID
-    JOIN TableC
-        ON TableC.cID = TableB.cID
-    JOIN TableD
-        ON TableD.dID = TableA.dID
-WHERE DATE(TableC.date)=date(now()) 
+UPDATE File 
+SET status_id='1' 
+WHERE f_id = '49';
 
