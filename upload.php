@@ -28,10 +28,7 @@
             $file_type = $_FILES['userfile']['type'];
             $file_error = $_FILES['userfile']['error'];
             $folder="files/";
-
-            // $supervisor_id = $_POST['supervisor'];
-
-
+        
             // PHP upload file errors
             $phpFileUploadErrors = array(
                 0 => 'There is no error, file uploaded successfully',
@@ -70,11 +67,12 @@
                 if(move_uploaded_file($file_path, $folder.$file_name)) {
 
 
-                    
+                    $supervisor_id = $_POST['supervisor'];
                     $student_id =  $_SESSION['id'];
+                    $faculty_id = $_SESSION['faculty_id'];
 
      
-                    $sql="INSERT INTO File(name,size,type,status_id,student_id,supervisor_id,faculty_id) VALUES('$file_name','$new_size','$file_type','0','$student_id','5','1')";
+                    $sql="INSERT INTO File(name,size,type,status_id,student_id,supervisor_id,faculty_id) VALUES('$file_name','$new_size','$file_type','0','$student_id','$supervisor_id','$faculty_id')";
 
                     
                     mysqli_query($con,$sql) or die("Can not insert files".mysqli_error($con));
@@ -144,9 +142,10 @@
                                 $result_set=mysqli_query($con,$sql) or die("Can not read files".mysqli_error($con));
                                 while($row=mysqli_fetch_array($result_set,MYSQLI_ASSOC)) {
                             ?>
-                        
-                                <option value="<?php $row['s_id'] ?>"><?php echo $row['f_name']." ".$row['l_name']; ?></option>
-                                
+                                <!-- <option value="'.$row['st_id'].'"'.$selected.'>'.$row['name'].'</option>'; -->
+
+                                <option value="<?php echo $row['s_id']; ?>"><?php echo $row['f_name']." ".$row['l_name']; ?></option>
+                                <!-- s_id -->
                             <?php
                                 }
                             ?>
