@@ -81,7 +81,7 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="home.php">Symposium</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -89,47 +89,57 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="signup.php">Sign Up <span class="sr-only">(current)</span></a>
-        </li><li class="nav-item active">
-            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
-        </li>
+        <?php
+                if($_SESSION['id'] == null) {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                } else {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                }
+            ?>
         
         </ul>
     </div>
     </nav>
 
+    <div id="body" class="container-fluid">
 
-    <div id="header">
-    <label>Pending Reseach Papers</label>
-    </div>
-    <div id="body">
+    <h1 class="display-4">Pending Reseach Papers</h1>
 
     <form action="" method="POST">
-        <table width="80%" border="1">
-            <tr>
-            <th colspan="9">Pending Research Papers</th>
-            </tr>
-            <tr>
-            <td>Title</td>
-            <td>Category</td>
-            <td>Status</td>
-            <td>Student Name</td>
-            <td>Faculty</td>
-            <td>Supervisor</td>
-            <td>View</td>
-            <td>Update</td>
-            <td>Download</td>
+        <table class="table table-striped text-center">
+
+        <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Student Name</th>
+                        <th scope="col">Faculty</th>
+                        <th scope="col">Supervisor</th>
+                        <th scope="col">View</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Download</th>
+
+                    </tr>
+        </thead>
 
 
 
-            </tr>
+            </thead>
             <?php
 
                 // session_start();
@@ -167,11 +177,11 @@
             ?>
             </table>
             <div class="form-group">
-                <input type="submit" name="update" id="submit" class="form-submit" value="Update"/>
+                <input type="submit" class="btn btn-secondary btn-lg" name="update" id="submit" class="form-submit" value="Update"/>
             </div>
 
             <div class="form-group">
-                <input type="submit" name="download" id="submit" class="form-submit" value="Download"/>
+                <input type="submit" class="btn btn-secondary btn-lg" name="download" id="submit" class="form-submit" value="Download"/>
             </div>
         </form>
     </div>

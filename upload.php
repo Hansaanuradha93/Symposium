@@ -120,6 +120,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
+
         <!-- Main css -->
         <link rel="stylesheet" href="css/style.css">
     </head>
@@ -132,17 +133,28 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                 <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="signup.php">Sign Up <span class="sr-only">(current)</span></a>
-                </li><li class="nav-item active">
-                    <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
-                </li>
+                
+                <?php
+                if($_SESSION['id'] == null) {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                } else {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                }
+            ?>
             
                 </ul>
             </div>
@@ -168,10 +180,10 @@
 
                         
                         <div class="form-group">
-                            <input type="file" name="userfile" class="form-control-file" id="email"/>
+                            <input type="file" name="userfile" class="file btn btn-sm btn-primary" id="email"/>
                         </div>
                         <div class="form-group">
-                            <select name="supervisor">
+                            <select name="supervisor" class="selectpicker">
                             <?php
                                 $sql="SELECT * FROM Supervisor";
                                 $result_set=mysqli_query($con,$sql) or die("Can not read files".mysqli_error($con));

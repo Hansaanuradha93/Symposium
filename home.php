@@ -25,17 +25,39 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-            <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="signup.php">Sign Up <span class="sr-only">(current)</span></a>
-        </li><li class="nav-item active">
-            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
-        </li>
+        
+        <?php
+                session_start();
+
+                if(isset($_SESSION['id'])) {
+                  if($_SESSION['id'] == null) {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                  } else {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                  }
+                } else {
+                  ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                }
+                
+            ?>
         
         </ul>
     </div>

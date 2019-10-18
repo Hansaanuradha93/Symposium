@@ -108,17 +108,41 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="signup.php">Sign Up <span class="sr-only">(current)</span></a>
-            </li><li class="nav-item active">
-                <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
-            </li>
+            
+            <?php
+
+            if(isset($_SESSION['id'])) {
+                if($_SESSION['id'] == null) {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                } else {
+                    ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="upload.php">Upload <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="view.php">Pending <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="profile.php">Profile <span class="sr-only">(current)</span></a>
+                        </li>
+                    <?php
+                }
+            } else {
+                ?>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+                        </li>
+                <?php
+            }
+
+
+                
+            ?>
+            
             
             </ul>
         </div>
@@ -136,7 +160,7 @@
                             <input type="text" class="form-input" name="id" id="email" placeholder="Student ID / Employee ID"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <input type="password" class="form-input" name="password" id="password" placeholder="Password"/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">

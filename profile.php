@@ -9,12 +9,18 @@
 
 ?>
 
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Pending Files</title>
     <link rel="stylesheet" href="style.css" type="text/css" /><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="css/card.css">
+
 </head>
 <body>
 
@@ -27,6 +33,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         <?php
+                session_start();
                 if($_SESSION['id'] == null) {
                     ?>
                         <li class="nav-item active">
@@ -52,61 +59,50 @@
     </div>
     </nav>
 
-    <div id="body" class="container-fluid">
 
-        <h1 class="display-4">Pending Reseach Papers</h1>
+    <?php
 
-        <table class="table table-striped text-center">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Student Name</th>
-                        <th scope="col">Supervisor</th>
-                        <th scope="col">Faculty</th>
-                        <th scope="col">Supervisor</th>
-                    </tr>
+        // session_start();
+        $id = $_SESSION['id'];
+        
 
-                </thead>
+        if ($_SESSION['customer_type'] == 'student') {
+            $sql="select *
+            FROM Student
+            WHERE s_id = '$id'";
+        } else if($_SESSION['customer_type'] == 'supervisor') {
+            $sql="select *
+            FROM Supervisor
+            WHERE s_id='$id'";
+        }
+        
+        $result_set=mysqli_query($con,$sql) or die("Can not read files".mysqli_error($con));
 
-            </tr>
-            <?php
+        // select File.name, File.title, File.category, Status.name
+        // from File
+        // Join Status ON Status.s_id = File.status_id;
+        while($row=mysqli_fetch_array($result_set,MYSQLI_ASSOC))
+        {
+    ?>
+        
+    <div class="card">
+    <img src="images/user.png" alt="John" style="width:100%">
+    <h1><?php echo $row['f_name'].' '.$row['l_name'] ?></h1>
+    <p class="title"><?php echo $_SESSION['customer_type'] ?></p>
+    <p>NSBM Green University</p>
+    <a href="#"><i class="fa fa-dribbble"></i></a> 
+    <a href="#"><i class="fa fa-twitter"></i></a> 
+    <a href="#"><i class="fa fa-linkedin"></i></a> 
+    <a href="#"><i class="fa fa-facebook"></i></a> 
+    <form action="logout.php" method="POST">
+        <input type="submit" value="Logout" name="submit">
+    </form>
+    </div>
 
-                // session_start();
-                $student_id = $_SESSION['id'];
-
-                $sql="select f.name as file_name, f.title as file_title, f.category as file_category, s.name as status_name, st.f_name as first_name, st.l_name as last_name, fc.name as faculty_name, sp.f_name as supervisor_first_name, sp.l_name as supervisor_last_name FROM File f
-                Join Status s ON s.s_id = f.status_id
-                JOIN Student st ON f.student_id = st.s_id
-                JOIN Faculty fc ON fc.f_id = f.faculty_id
-                JOIN Supervisor sp ON sp.s_id = f.supervisor_id
-                WHERE f.student_id = '$student_id'
-                AND f.status_id='0'";
-                $result_set=mysqli_query($con,$sql) or die("Can not read files".mysqli_error($con));
-
-
-                // select File.name, File.title, File.category, Status.name
-                // from File
-                // Join Status ON Status.s_id = File.status_id;
-                while($row=mysqli_fetch_array($result_set,MYSQLI_ASSOC))
-                {
-            ?>
-                <tr>
-                <th scope="row"><?php echo $row['file_title'] ?></th>
-                <td><?php echo $row['file_category'] ?></td>
-                <td><?php echo $row['status_name'] ?></td>
-                <td><?php echo $row['first_name']." ".$row['last_name'] ?></td>
-                <td><?php echo $row['faculty_name'] ?></td>
-                <td><?php echo $row['supervisor_first_name']." ". $row['supervisor_last_name']?></td>
-                <td><a href="files/<?php echo $row['file_name'] ?>" target="_blank">View file</a></td>
-                </tr>
-                <?php
-                }
-            ?>
-        </table>
+    <?php
+        }
+    ?>
     
-</div>
 
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50 fixed-bottom">
       <div class="container text-center">
